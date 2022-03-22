@@ -2,11 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\PokemonRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PokemonRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=PokemonRepository::class)
+ * @ApiResource
+ * @ApiFilter(SearchFilter::class, properties={"name": "exact", "type1": "exact", "type2": "exact", "legendary": "exact"})
  */
 class Pokemon
 {

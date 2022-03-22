@@ -30,6 +30,10 @@ security:
                 check_path:         /api/login_check
                 success_handler:    lexik_jwt_authentication.handler.authentication_success
                 failure_handler:    lexik_jwt_authentication.handler.authentication_failure
+        show_pokemon:
+            pattern: ^/api/pokemon
+            anonymous: true
+            stateless: true
         api:
             pattern:   ^/api
             anonymous: true
@@ -53,6 +57,7 @@ security:
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [GET, PUT, DELETE, PATCH] }
+        - { path: ^/api/pokemon, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
 when@test:
     security:
