@@ -6,11 +6,17 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PokemonRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+
+// Quand l'utilisateur veut modifier un champ en "readonly" il ne peut pas mais recoit un code 200 dans Postman. Bizarre. A creuser.
 
 /**
  * @ORM\Entity(repositoryClass=PokemonRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ *             )
  * @ApiFilter(SearchFilter::class, properties={"name": "exact", "type1": "exact", "type2": "exact", "legendary": "exact"})
  */
 class Pokemon
@@ -24,61 +30,73 @@ class Pokemon
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read", "write"});
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read", "write"});
      */
     private $type1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"read", "write"});
      */
     private $type2;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("read");
      */
     private $total;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("read");
      */
     private $hp;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("read");
      */
     private $attack;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("read");
      */
     private $defense;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("read");
      */
     private $sp_atk;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("read");
      */
     private $sp_def;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("read");
      */
     private $speed;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read", "write"});
      */
     private $generation;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("read");
      */
     private $legendary;
 
