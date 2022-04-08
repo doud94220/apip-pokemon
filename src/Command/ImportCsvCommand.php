@@ -51,7 +51,7 @@ class ImportCsvCommand extends Command
                     for ($i = 0; $i < count($data); $i++) {
                         switch ($enteteArray[$i]) {
                             case '#':
-                                $pokemonToInsert->setId($data[$i]);
+                                $pokemonToInsert->setNumber($data[$i]);
                                 break;
                             case 'Name':
                                 $pokemonToInsert->setName($data[$i]);
@@ -87,7 +87,11 @@ class ImportCsvCommand extends Command
                                 $pokemonToInsert->setGeneration($data[$i]);
                                 break;
                             case 'Legendary':
-                                $pokemonToInsert->setLegendary($data[$i]);
+                                if ($data[$i] == "False") {
+                                    $pokemonToInsert->setLegendary(0);
+                                } else {
+                                    $pokemonToInsert->setLegendary(1);
+                                }
                                 break;
                         }
                     }

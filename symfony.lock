@@ -13,6 +13,9 @@
             "./src/Entity/.gitignore"
         ]
     },
+    "curl/curl": {
+        "version": "2.3.3"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {

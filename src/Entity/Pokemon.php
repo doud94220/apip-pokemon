@@ -7,6 +7,7 @@ use App\Repository\PokemonRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 // Quand l'utilisateur veut modifier un champ en "readonly" il ne peut pas mais recoit un code 200 dans Postman. Bizarre. A creuser.
@@ -14,10 +15,13 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * @ORM\Entity(repositoryClass=PokemonRepository::class)
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     collectionOperations={"GET", "POST"},
+ *     itemOperations={"GET", "PUT", "PATCH", "DELETE"},
+ *     normalizationContext={"groups"={"pokemon_read"}},
+ *     denormalizationContext={"groups"={"pokemon_write"}}          
  *             )
- * @ApiFilter(SearchFilter::class, properties={"name": "exact", "type1": "exact", "type2": "exact", "legendary": "exact"})
+ * @ApiFilter(SearchFilter::class, properties={"name": "exact", "type1": "exact", "type2": "exact", "legendary": "exact", "generation": "exact"})
+ * @Assert\Expression("this.getlegendary() in ['0']", message="ON NE PEUT PAS MODIFIER UN POKEMON LEGENDAIRE")
  */
 class Pokemon
 {
@@ -25,80 +29,89 @@ class Pokemon
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"pokemon_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"});
+     * @Groups({"pokemon_read", "pokemon_write"});
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"});
+     * @Groups({"pokemon_read", "pokemon_write"})
+     * @Assert\Choice(choices={"Fire","Water","Bug","Normal","Poison","Electric","Ground","Fairy","Grass","Fighting","Psychic","Rock","Ghost","Ice","Dragon","Dark","Steel","Flying"}, message="Merci de choisir un type1 parmi les 17 valeurs possibles")
      */
     private $type1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read", "write"});
+     * @Groups({"pokemon_read", "pokemon_write"})
+     * @Assert\Choice(choices={"Fire","Water","Bug","Normal","Poison","Electric","Ground","Fairy","Grass","Fighting","Psychic","Rock","Ghost","Ice","Dragon","Dark","Steel","Flying",""}, message="Merci de choisir un type1 parmi les 18 valeurs possibles")
      */
     private $type2;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("read");
+     * @Groups({"pokemon_read"})
      */
     private $total;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("read");
+     * @Groups({"pokemon_read"})
      */
     private $hp;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("read");
+     * @Groups({"pokemon_read"})
      */
     private $attack;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("read");
+     * @Groups({"pokemon_read"})
      */
     private $defense;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("read");
+     * @Groups({"pokemon_read"})
      */
     private $sp_atk;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("read");
+     * @Groups({"pokemon_read"})
      */
     private $sp_def;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("read");
+     * @Groups({"pokemon_read"})
      */
     private $speed;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"});
+     * @Groups({"pokemon_read", "pokemon_write"});
      */
     private $generation;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("read");
+     * @Groups({"pokemon_read", "pokemon_write"});
      */
     private $legendary;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Groups({"pokemon_read"})
+     */
+    private $number;
 
     public function getId(): ?int
     {
@@ -252,6 +265,18 @@ class Pokemon
     public function setLegendary(bool $legendary): self
     {
         $this->legendary = $legendary;
+
+        return $this;
+    }
+
+    public function getNumber(): ?int
+    {
+        return $this->number;
+    }
+
+    public function setNumber(int $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }
