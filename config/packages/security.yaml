@@ -54,8 +54,6 @@ security:
         - { path: ^/api/pokemon/id, roles: IS_AUTHENTICATED_FULLY, methods: [PUT, PATCH, DELETE] }
 
 
-
-
 when@test:
     security:
         password_hashers:
