@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "8033b114-80f5-4122-a67e-263b24174e60",
+		"name": "TestPokemonCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreationUtilisateur",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test6@outlook.fr\",\r\n    \"password\": \"Test6@Test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LogUtilisateur",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test2@outlook.fr\",\r\n    \"password\": \"Test2@Test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/login_check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"login_check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOnePokemon",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/pokemon/3203",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pokemon",
+						"3203"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPokemonsWithOneFilter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/pokemon?type1=Fire",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pokemon"
+					],
+					"query": [
+						{
+							"key": "type1",
+							"value": "Fire"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllPokemonsBy50",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/pokemon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pokemon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOnePokemonWithPaginationSetByUserAndPageChoiceToo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/pokemon?pagination=true&limit=5&page=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pokemon"
+					],
+					"query": [
+						{
+							"key": "pagination",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						},
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateKoOnePokemon",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NDk0MzExMzEsImV4cCI6MTY0OTQzNDczMSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidGVzdDJAb3V0bG9vay5mciJ9.cW_9If2n2nYrP4iXMvoAw-E4bPnPPbfopgp5slq3W_ZY--I3u4z4prwJgDYs_IPn90AbPCg72TNedkGVwZQyopKlFSbUG2w3FdE1dWmK6DSCCRGjnHHaaGBEY70e6hFC-1vSMcvF0FyE2mw2HZbEHyj2WVP1nDG7_XwfE-hpUZYiILk-i_hneoYon5cgiKUBXuQwElEIszv2raiupKbXC5Obckzja3Kdw0PCMYI9TK2XhDgfXhCnjIXUMO52dn2cycubV4yVcAxMexbLSbb3zgOvsLv0_dqX65eXH1rtHeHRggSlIlc-ptZdPH87HBLfHflzKQvs2AyjRewKkcJu5Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/merge-patch+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"total\": 999\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/pokemon/3203",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pokemon",
+						"3203"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateOkOnePokemon",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NDk0MzExMzEsImV4cCI6MTY0OTQzNDczMSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidGVzdDJAb3V0bG9vay5mciJ9.cW_9If2n2nYrP4iXMvoAw-E4bPnPPbfopgp5slq3W_ZY--I3u4z4prwJgDYs_IPn90AbPCg72TNedkGVwZQyopKlFSbUG2w3FdE1dWmK6DSCCRGjnHHaaGBEY70e6hFC-1vSMcvF0FyE2mw2HZbEHyj2WVP1nDG7_XwfE-hpUZYiILk-i_hneoYon5cgiKUBXuQwElEIszv2raiupKbXC5Obckzja3Kdw0PCMYI9TK2XhDgfXhCnjIXUMO52dn2cycubV4yVcAxMexbLSbb3zgOvsLv0_dqX65eXH1rtHeHRggSlIlc-ptZdPH87HBLfHflzKQvs2AyjRewKkcJu5Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/merge-patch+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/pokemon/3203",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pokemon",
+						"3203"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteOnePokemon",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NDk0MzExMzEsImV4cCI6MTY0OTQzNDczMSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidGVzdDJAb3V0bG9vay5mciJ9.cW_9If2n2nYrP4iXMvoAw-E4bPnPPbfopgp5slq3W_ZY--I3u4z4prwJgDYs_IPn90AbPCg72TNedkGVwZQyopKlFSbUG2w3FdE1dWmK6DSCCRGjnHHaaGBEY70e6hFC-1vSMcvF0FyE2mw2HZbEHyj2WVP1nDG7_XwfE-hpUZYiILk-i_hneoYon5cgiKUBXuQwElEIszv2raiupKbXC5Obckzja3Kdw0PCMYI9TK2XhDgfXhCnjIXUMO52dn2cycubV4yVcAxMexbLSbb3zgOvsLv0_dqX65eXH1rtHeHRggSlIlc-ptZdPH87HBLfHflzKQvs2AyjRewKkcJu5Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/pokemon/3203",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pokemon",
+						"3203"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
